@@ -1,0 +1,64 @@
+{% set defaults = {
+  brand_name: "Panely",
+  favicon: "assets/images/favicon.ico" | url,
+  theme: "light",
+  enable_preload: true,
+  enable_aside: true,
+  minimized_aside: false,
+  enable_header: true,
+  enable_footer: true,
+  enable_scrolltop: true,
+  enable_analytics: false,
+  google_analytics_id: "G-XXXXXXXXXX",
+  components: {
+    preload: {
+      ltr: "components/preload/ltr/spinner.njk",
+      rtl: "components/preload/rtl/spinner.njk"
+    },
+    aside: {
+      ltr: "components/aside/ltr/aside.njk",
+      rtl: "components/aside/rtl/aside.njk"
+    },
+    header: {
+      ltr: "components/header/ltr/header.njk",
+      rtl: "components/header/rtl/header.njk"
+    },
+    footer: {
+      ltr: "components/footer/ltr/footer.njk",
+      rtl: "components/footer/rtl/footer.njk"
+    },
+    scrolltop: {
+      ltr: "components/scrolltop/ltr/scrolltop.njk",
+      rtl: "components/scrolltop/rtl/scrolltop.njk"
+    },
+    offcanvas: {
+      ltr: [
+        "components/sidemenu/ltr/todo.njk",
+        "components/sidemenu/ltr/settings.njk",
+        "components/float-button/ltr/float-button.njk"
+      ],
+      rtl: [
+        "components/sidemenu/rtl/todo.njk",
+        "components/sidemenu/rtl/settings.njk",
+        "components/float-button/rtl/float-button.njk"
+      ]
+    }
+  },
+  css_links: {
+    ltr: [
+      "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&family=Roboto+Mono&display=swap",
+      "assets/build/styles/ltr-core.css" | url,
+      "assets/build/styles/ltr-vendor.css" | url
+    ],
+    rtl: [
+      "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&family=Roboto+Mono&display=swap",
+      "assets/build/styles/rtl-core.css" | url,
+      "assets/build/styles/rtl-vendor.css" | url
+    ]
+  },
+  js_links: [
+    "assets/build/scripts/mandatory.js" | url,
+    "assets/build/scripts/core.js" | url,
+    "assets/build/scripts/vendor.js" | url
+  ]
+}%}
