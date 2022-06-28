@@ -86,7 +86,7 @@
 							<div class="menu-item-icon">
 								<i class="fa fa-icons"></i>
 							</div>
-							<span class="menu-item-text">Tasks</span>
+							<span class="menu-item-text">Solutions</span>
 							<div class="menu-item-addon">
 								<i class="menu-item-caret caret"></i>
 							</div>
@@ -116,12 +116,9 @@
 							<a href="projects.php">
 								
 							<span class="menu-item-text text-white">Projects</span>
-							<div class="menu-item-addon">
-							<i class="menu-item-bullet"></i>
+								<i class="menu-item-caret caret"></i>
+							
 
-							</a>
-
-							</div>
 						</button>
 						<div class="menu-submenu">
 

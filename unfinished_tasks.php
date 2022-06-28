@@ -3,6 +3,10 @@
 session_start();
 require('./config/database.php');
 
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
+
 
 $sql = "        SELECT t.id, t.`comment`, t.complaint_id,
 c.project_id,c.contact,c.complain_comment,c.user_id,c.type_comm_id, 
@@ -543,6 +547,10 @@ $arr = array();
 	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
 	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
 	<script type="text/javascript" src="assets/app/home.js"></script>
+	<script type="text/javascript" src=".ssets/build/scripts/mandatory.js"></script>
+	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
+	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
+	<script type="text/javascript" src="assets/app/form/datetimepicker.js"></script>
 	<script>
 $( document ).ready(function() {
     	$(".delete-task").click(function(){

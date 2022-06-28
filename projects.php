@@ -3,10 +3,12 @@
 session_start();
 require('./config/database.php');
 
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
 
-$sql = "SELECT * from users as u
-JOIN complaints as c ON c.user_id = u.id;
-;";
+
+$sql = "SELECT * from projects;";
 $query = mysqli_query($conn, $sql);
 $arr = array();
 
@@ -46,61 +48,24 @@ $arr = array();
 				<div class="container-fluid">
 
                     <div class="row">
-                        <div class="col-6">
-                            <div class="card pb-5">
-                                <div class="card-header">
-                                    <p>Project 1</p>
-                                    <span class="float-right" style="padding: 5px; margin-left: 5px;">From: John Doe></span>
-                                </div>
-                                <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente magni obcaecati perspiciatis voluptatem velit a iusto doloremque, eius sint nihil praesentium asperiores animi maxime delectus, vel officia enim optio?</div>
-                                <div class="card-footer">
-                                    <p class="btn btn-danger">Unresolved Project</p>
-                                </div>
-                            </div>
-                            <div class="card pb-5">
-                                <div class="card-header">
-                                    <p>Project 1</p>
-                                    <span class="float-right" style="padding: 5px; margin-left: 5px;">From: John Doe></span>
-                                </div>
-                                <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente magni obcaecati perspiciatis voluptatem velit a iusto doloremque, eius sint nihil praesentium asperiores animi maxime delectus, vel officia enim optio?</div>
-                                <div class="card-footer">
-                                    <p class="btn btn-danger">Unresolved Project</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                        <div class="card pb-5">
-                                <div class="card-header">
-                                    <p>Project 1</p>
-                                    <span class="float-right" style="padding: 5px; margin-left: 5px;">From: John Doe></span>
-                                </div>
-                                <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente magni obcaecati perspiciatis voluptatem velit a iusto doloremque, eius sint nihil praesentium asperiores animi maxime delectus, vel officia enim optio?</div>
-                                <div class="card-footer">
-                                    <p class="btn btn-danger">Unresolved Project</p>
-                                </div>
-                            </div>
-                            <div class="card pb-5">
-                                <div class="card-header">
-                                    <p>Project 1</p>
-                                    <span class="float-right" style="padding: 5px; margin-left: 5px;">From: John Doe></span>
-                                </div>
-                                <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente magni obcaecati perspiciatis voluptatem velit a iusto doloremque, eius sint nihil praesentium asperiores animi maxime delectus, vel officia enim optio?</div>
-                                <div class="card-footer">
-                                    <p class="btn btn-success">Fixed Project</p>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <p>Project 1</p>
-                                    <span class="float-right" style="padding: 5px; margin-left: 5px;">From: John Doe></span>
-                                </div>
-                                <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sapiente magni obcaecati perspiciatis voluptatem velit a iusto doloremque, eius sint nihil praesentium asperiores animi maxime delectus, vel officia enim optio?</div>
-                                <div class="card-footer">
-                                    <p class="btn btn-danger">Unresolved Project</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+					<?php
+                
+				while($row = mysqli_fetch_array($query)){
+
+				echo "
+
+				<div class='col-md-12 pb-5'>
+				<div class='card'>
+				<div class='card-header'><h3>Made By:  ".$row['project']. " </h3> </div>
+				<div class'card-body px-5 mx-5'>Company: ".$row['company']." <br> Task:</div> 
+				<div class='card-footer'><button type='submit' class='btn btn-danger delete_project
+				float-right' id=".$row['id']." >Delete</button></div>
+				</div>
+				</div>
+					";
+
+					}
+			?>	
 
 				</div>
 			</div>
@@ -564,6 +529,21 @@ $arr = array();
 	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
 	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
 	<script type="text/javascript" src="assets/app/home.js"></script>
+<script>	
+$( document ).ready(function() {
+    	$(".delete_project").click(function(){
+			var project_id = $(this).attr('id');
+			$.ajax({
+				type: "POST",
+				url: "delete-project.php",
+				data : {project_id: project_id},
+				success: function(res){
+					location.reload(true)
+				}
+			})
+		})
+		});
+	</script>
 </body>
 
 </html>

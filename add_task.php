@@ -4,6 +4,10 @@ session_start();
 require('./config/database.php');
 
 
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
+
 $sql = "SELECT * FROM `complaints`";
 $sqlQuery = mysqli_query($conn, $sql);
 
@@ -45,12 +49,36 @@ $sqlQuery = mysqli_query($conn, $sql);
 				<div class="container-fluid">
 
         <form method="POST" action="./functions/add_task.php">
-        <div class="form-group">
-					<label for="exampleFormControlTextarea1">Comment Task</label>
-					<textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
-				</div>
         
                 <div class="form-group">
+					<div class="col-md-12">
+						<label for="comment"></label>
+					<label for="exampleFormControlTextarea1">Complaint Problem</label>
+					<textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+					</div>
+				<div class="col-md-6 mb-3">
+					<label for="from">From</label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="from" placeholder="Select date" id="datetimepicker-1">
+						<div class="input-group-append">
+							<span class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="until">Until</label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="until" placeholder="Select date" id="datetimepicker-4">
+						<div class="input-group-append">
+							<span class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</span>
+						</div>
+					</div>
+				</div>
 					<label for="exampleFormControlSelect1">Which Complaint</label>
 						<select class="form-control" name="complaint_id">
 							<?php
@@ -527,6 +555,8 @@ $sqlQuery = mysqli_query($conn, $sql);
 	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
 	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
 	<script type="text/javascript" src="assets/app/home.js"></script>
+	<script type="text/javascript" src="assets/app/form/datetimepicker.js"></script>
+
 </body>
 
 </html>

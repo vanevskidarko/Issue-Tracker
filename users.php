@@ -4,6 +4,10 @@ session_start();
 require('./config/database.php');
 
 
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
+
 $sql = "SELECT * From users";
 $query = mysqli_query($conn, $sql);
 $arr = array();
@@ -48,8 +52,9 @@ $arr = array();
                         <tr>
                             <td>ID</td>
                             <td>Name</td>
+							<td>Email Adress</td>
                             <td>Phone Number</td>
-                            <td>Email Adress</td>
+
                             <td>Actions</td>
                         </tr>
                     </thead>
@@ -61,8 +66,8 @@ $arr = array();
                     echo "<td>".$row['firstname']."</td>";
                     echo "<td>".$row['email']."</td>";
                     echo "<td>".$row['mobilenumber']."</td>";
-                    echo "<td><button class='btn btn-info'>Edit</button>  <button class='btn btn-danger'>Delete</button> </td>";
-                        }
+                    echo '<td> <button class="btn btn-danger user_id" id='.$row['id'].' >Delete</button> </td>'
+				;}
                     echo "</tr>";
                     ?>
                     
@@ -532,6 +537,21 @@ $arr = array();
 	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
 	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
 	<script type="text/javascript" src="assets/app/home.js"></script>
+	<script>	
+$( document ).ready(function() {
+    	$(".user_id").click(function(){
+			var user_id = $(this).attr('id');
+			$.ajax({
+				type: "POST",
+				url: "delete-user.php",
+				data : {user_id: user_id},
+				success: function(res){
+					location.reload(true)
+				}
+			})
+		})
+		});
+	</script>
 </body>
 
 </html>

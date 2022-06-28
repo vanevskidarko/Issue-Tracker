@@ -3,6 +3,9 @@
 session_start();
 require('./config/database.php');
 
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
 
 $sql = "	SELECT  c.id, c.project_id,
 			c.complain_comment, c.user_id, c.complain_date,	

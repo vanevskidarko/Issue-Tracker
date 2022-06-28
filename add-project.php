@@ -3,7 +3,9 @@
 session_start();
 require('./config/database.php');
 
-
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
 
 
 ?>

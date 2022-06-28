@@ -1,6 +1,12 @@
 <?php 
 
 session_start();
+
+
+if(!isset($_SESSION['firstname'])){
+	header('Location: /test/');
+}
+
 require('./config/database.php');
 
 ?>
