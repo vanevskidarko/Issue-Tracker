@@ -116,7 +116,9 @@
 							<a href="projects.php">
 								
 							<span class="menu-item-text text-white">Projects</span>
+							<div class="menu-item-addon">
 								<i class="menu-item-caret caret"></i>
+							</div>
 							
 
 						</button>

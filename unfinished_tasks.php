@@ -8,7 +8,7 @@ if(!isset($_SESSION['firstname'])){
 }
 
 
-$sql = "        SELECT t.id, t.`comment`, t.complaint_id,
+$sql = "         SELECT t.id, t.`comment`, t.complaint_id, t.od_vreme,t.do_vreme,
 c.project_id,c.contact,c.complain_comment,c.user_id,c.type_comm_id, 
 ty.type_of_communication, u.firstname, p.project, p.company,t.is_fixed, c.complain_date
 FROM tasks as t
@@ -73,12 +73,15 @@ $arr = array();
                     <div class='col-md-12 pb-5'>
                     <div class='card'>
                     <div class='card-header'><h3>Made By:  ".$row['firstname']. " </h3> </div>
-                    <div class'card-body px-5 mx-5'>Company: ".$row['company']." <br> Task:  ".$row['comment']." <br> Project Description: ".$row['project']." 
-					 <br> Date Of the Complaint: ".$row['complain_date']."  </div>
-
+                    <div class'card-body pt-2'>Company: ".$row['company']." <br> Task:  ".$row['comment']." <br> Project Description: ".$row['project']." 
+					 <br> <div class='float-right '> Date Of the Complaint: ".$row['complain_date']."  </div>
+					 <br> <div class='float-right pt-1'>Worked From: ".$row['od_vreme']."  Until: ".$row['do_vreme']."</div>
+					 </div>
                     </div>
                     <button type='submit' class='btn btn-danger delete-task
-                    float-right' id=".$row['id']." >Delete</button>
+                    float-right m-2 p-2' id=".$row['id']." >Delete</button>
+					<a href='view_task.php?id=".$row['id']."' class='btn btn-primary float-right m-2 p-2'>View</a>
+					<input type='hidden'> ".$row['id']."
                     </div>
                         ";}
 

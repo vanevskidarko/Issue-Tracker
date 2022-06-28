@@ -3,14 +3,19 @@
 session_start();
 require('./config/database.php');
 
+
 if(!isset($_SESSION['firstname'])){
 	header('Location: /test/');
 }
 
 
-$sql = "SELECT * from projects;";
-$query = mysqli_query($conn, $sql);
-$arr = array();
+$id = $_REQUEST['id'];
+
+$sql = "SELECT t.id, t.comment, t.date,t.is_fixed,t.complaint_id,t.od_vreme,t.do_vreme, c.complain_comment,c.complain_date FROM `tasks` as t
+JOIN complaints as c
+ON t.complaint_id = c.id WHERE t.id = '$id';";
+$sqlQuery = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($sqlQuery);
 
 ?>
 
@@ -47,25 +52,52 @@ $arr = array();
 			<div class="content ">
 				<div class="container-fluid">
 
-                    <div class="row">
-					<?php
-                
-				while($row = mysqli_fetch_array($query)){
+        <form method="POST" action="./functions/add_task.php">
+        
+                <div class="form-group">
+					<div class="col-md-12">
+						<label for="comment"></label>
+					<label for="exampleFormControlTextarea1">Complaint Problem</label>
+					<textarea class="form-control" name="comment" id="comment" rows="3"><?php echo $row['comment']?></textarea>
 
-				echo "
-
-				<div class='col-md-6 pb-5'>
-				<div class='card'>
-				<div class='card-header'><h3>Project Name:  ".$row['project']. " </h3> </div>
-				<div class'card-body px-5 mx-5'>Company: ".$row['company']." <br><br><br><br> </div> 
-				<div class='card-footer'><button type='submit' class='btn btn-danger delete_project
-				float-right' id=".$row['id']." >Delete</button></div>
+					</div>
+				<div class="col-md-6 mb-3">
+					<label for="from">From</label>
+					<div class="input-group">
+						<input type="text" class="form-control od_vreme" name="from" placeholder="<?php echo $row['od_vreme'] ?>" id="datetimepicker-1">
+						<div class="input-group-append">
+							<span class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</span>
+						</div>
+					</div>
 				</div>
+				<div class="col-md-6 mb-3">
+					<label for="until">Until</label>
+					<div class="input-group">
+						<input type="text" class="form-control do_vreme" name="until" placeholder="<?php echo $row['do_vreme'] ?>" id="datetimepicker-4">
+						<input type="hidden" name="" id="complaint_id" value="<?php echo $row['complaint_id'] ?>">
+						<div class="input-group-append">
+							<span class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</span>
+						</div>
+					</div>
 				</div>
-					";
+				<input type="hidden" name="" value="<?php echo $row['id'] ?> " id="id">
+					<label for="exampleFormControlSelect1">Which Complaint</label>
+						<select class="form-control" name="complaint_id">
+							<?php
 
-					}
-			?>	
+							 echo "<option value=".$row['id'].">".$row['complain_comment']."</option>";
+							     ?>
+						</select>
+				</div>
+
+
+				<button type="submit" class="btn btn-primary update" id="<?php echo $row['id'] ?>" name="submit">Update</button>
+				
+		</form>
 
 				</div>
 			</div>
@@ -529,14 +561,28 @@ $arr = array();
 	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
 	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
 	<script type="text/javascript" src="assets/app/home.js"></script>
-<script>	
-$( document ).ready(function() {
-    	$(".delete_project").click(function(){
-			var project_id = $(this).attr('id');
+	<script type="text/javascript" src="assets/app/form/datetimepicker.js"></script>
+	<script>
+	$( document ).ready(function() {
+    	$(".update").click(function(){
+			var id = $(this).attr('id');
+			var comment = $('#comment').val();
+			var od_vreme = $('.od_vreme').val();
+			var do_vreme = $('.do_vreme').val();
+			var complaint_id = $('#complaint_id').val();
+			var date = new Date();
+			alert(comment)
 			$.ajax({
 				type: "POST",
-				url: "delete-project.php",
-				data : {project_id: project_id},
+				url: "update-task.php",
+				data : {
+					id: id,
+					comment: comment,
+					od_vreme: od_vreme,
+					do_vreme: do_vreme,
+					complaint_id: complaint_id,
+					date: date
+				},
 				success: function(res){
 					location.reload(true)
 				}
