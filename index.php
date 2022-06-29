@@ -37,6 +37,7 @@
                     </div>
                     <button type="submit" name="login" id="sign_in" class="btn btn-outline-primary btn-lg btn-block">Sign
                         in</button>
+                        <a href="signup.php" class="btn btn-primary" style="margin-top: 7px;">Register</a>
                 </form>
             </div>
         </div>

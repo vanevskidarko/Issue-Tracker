@@ -7,17 +7,16 @@ if(!isset($_SESSION['firstname'])){
 	header('Location: /test/');
 }
 
-$sql = "	SELECT  c.id, c.project_id,
-			c.complain_comment, c.user_id, c.complain_date,	
-			u.firstname, c.type_comm_id, ty.type_of_communication,
-			p.project FROM projects as p
-			JOIN complaints as c ON c.project_id = p.id
-			JOIN users as u ON c.user_id = u.id
-			JOIN type_comm as ty ON
-			c.type_comm_id = ty.id
-			ORDER BY c.id DESC; ";
-$query = mysqli_query($conn, $sql);
-$arr = array();
+$id = $_REQUEST['id'];
+
+$sql = "	SELECT c.id, c.project_id, c.contact, c.complain_comment, c.type_comm_id, p.project
+			from 
+			complaints as c JOIN projects as p ON
+ 			c.project_id = p.id where c.id='$id'";
+
+$sqlQuery = mysqli_query($conn, $sql);
+
+$row = mysqli_fetch_assoc($sqlQuery);
 
 ?>
 
@@ -32,7 +31,6 @@ $arr = array();
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&amp;family=Roboto+Mono&amp;display=swap" rel="stylesheet">
 	<link href="assets/build/styles/ltr-core.css" rel="stylesheet">
 	<link href="assets/build/styles/ltr-vendor.css" rel="stylesheet">
-    <script  src="https://code.jquery.com/jquery-3.6.0.js"  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="  crossorigin="anonymous"></script>
 	<link href="assets/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<title>Dashboard | Panely</title>
 </head>
@@ -55,30 +53,31 @@ $arr = array();
 			<div class="content ">
 				<div class="container-fluid">
 
-                    <div class="row">
-					<?php
-                
-				while($row = mysqli_fetch_array($query)){
-					// echo '<pre>';
-					// var_dump($row);
-				echo "
-				<div class='col-md-12 pb-5'>
-				<div class='card'>
-				<input type='hidden' name='complaint' id='complaint_id' class='row_id'>
-				<div class='card-header'><h3> Complaint Made By:   ".$row['firstname']. " </h3> </div>
-				<div class'card-body px-5 mx-5'>Type Of Exchanged Communication: ".$row['type_of_communication']." 
-				<br> Comment:  ".$row['complain_comment']." <br> Project Description: ".$row['project']." <br> Date Of the Complaint:
-				 ".$row['complain_date']."  <button type='submit' class='btn btn-danger delete-complaint
-				  float-right' id=".$row['id']." >Delete</button> <a href='view-complaint.php?id=".$row['id']."' class='float-right btn btn-primary view-complaint' id=".$row['id'].">View</a></div>
+        <form method="POST" action="update-complaint.php">
+				<div class="form-group">
+					<label for="exampleFormControlInput1">Contact</label>
+					<input type="text" class="form-control contact" id="contact" name="contact" value="<?php echo $row['contact'] ?>" id="exampleFormControlInput1" placeholder="Name">
 				</div>
+				<div class="form-group">
+					<label for="exampleFormControlSelect1">Type Of Communication</label>
+						<select class="form-control type_comm_id" name="type_comm_id" id="exampleFormControlSelect1">
+							<option ><?php echo $row['type_comm_id'] ?></option>
+						</select>
 				</div>
+				<div class="form-group">
+					<label for="exampleFormControlSelect1">Project Select</label>
+						<select class="form-control project"  name="project_id">
+							 <option> <?php echo $row['project'] ?> </option>
+						</select>
+				</div>
+				<div class="form-group">
+					<label for="exampleFormControlTextarea1">Complaint Problem</label>
+					<textarea class="form-control comment" id="complaint" name="complain_comment" id="exampleFormControlTextarea1" rows="3"><?php echo $row['complain_comment']?></textarea>
+				</div>
+				<button type="submit" id="<?php echo $row['id'] ?>" name="submit" class="btn btn-primary update">Update</button>
 				
-					";
+		</form>
 
-					}
-			?>
-					</div>
-					
 				</div>
 			</div>
 			<!-- END Page Content -->
@@ -541,15 +540,20 @@ $arr = array();
 	<script type="text/javascript" src="assets/build/scripts/core.js"></script>
 	<script type="text/javascript" src="assets/build/scripts/vendor.js"></script>
 	<script type="text/javascript" src="assets/app/home.js"></script>
-
 	<script>
-$( document ).ready(function() {
-    	$(".delete-complaint").click(function(){
-			var complain_id = $(this).attr('id');
+	$( document ).ready(function() {
+    	$(".update").click(function(){
+			var id = $(this).attr('id');
+			var contact = $('#contact').val();
+			var complaint = $('#complaint').val();
 			$.ajax({
 				type: "POST",
-				url: "delete-complaint.php",
-				data : {complain_id: complain_id},
+				url: "update-complaint.php",
+				data : {
+					id: id,
+					contact: contact,
+					complaint: complaint
+				},
 				success: function(res){
 					location.reload(true)
 				}
@@ -557,7 +561,6 @@ $( document ).ready(function() {
 		})
 		});
 	</script>
-  
 </body>
 
 </html>

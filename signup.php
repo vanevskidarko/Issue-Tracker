@@ -54,6 +54,11 @@
                     </div>
                     <button type="submit" name="submit" id="submit" class="btn btn-outline-primary btn-lg btn-block">Sign up
                     </button>
+                    <?php 
+                        if(isset($_POST['firstname'])){
+                            header("Location: dashboard.php");
+                        }
+                    ?>
                 </form>
             </div>
         </div>

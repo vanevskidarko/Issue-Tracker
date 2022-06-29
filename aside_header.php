@@ -35,7 +35,7 @@
 							<div class="menu-item-icon">
 								<i class="fa fa-palette"></i>
 							</div>
-							<span class="menu-item-text">Complaints</span>
+							<span class="menu-item-text">Projects</span>
 							<div class="menu-item-addon">
 								<i class="menu-item-caret caret"></i>
 							</div>
@@ -43,15 +43,15 @@
 						<!-- BEGIN Menu Submenu -->
 						<div class="menu-submenu">
 							<div class="menu-item">
-								<a href="complaints.php" data-menu-path="complaints.php" class="menu-item-link">
+								<a href="projects.php" data-menu-path="projects.php" class="menu-item-link">
 									<i class="menu-item-bullet"></i>
-									<span class="menu-item-text">All Complaints</span>
+									<span class="menu-item-text">All Projects</span>
 								</a>
 							</div>
 							<div class="menu-item">
-								<a href="add_complaint.php" data-menu-path="add_complaint.php" class="menu-item-link">
+								<a href="add-project.php" data-menu-path="add-project.php" class="menu-item-link">
 									<i class="menu-item-bullet"></i>
-									<span class="menu-item-text">File A Complaint</span>
+									<span class="menu-item-text">Add Project</span>
 								</a>
 							</div>
 
@@ -86,6 +86,33 @@
 							<div class="menu-item-icon">
 								<i class="fa fa-icons"></i>
 							</div>
+							<span class="menu-item-text">Complaints</span>
+							<div class="menu-item-addon">
+								<i class="menu-item-caret caret"></i>
+							</div>
+						</button>
+						<!-- BEGIN Menu Submenu -->
+						<div class="menu-submenu">
+							<div class="menu-item">
+								<a href="complaints.php" data-menu-path="complaints.php" class="menu-item-link">
+									<i class="menu-item-bullet"></i>
+									<span class="menu-item-text">All Complaints</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a href="add_complaint.php" data-menu-path="add_complaint.php" class="menu-item-link">
+									<i class="menu-item-bullet"></i>
+									<span class="menu-item-text">Add A Complaint</span>
+								</a>
+							</div>
+						</div>
+						<!-- END Menu Submenu -->
+					</div>
+					<div class="menu-item">
+						<button class="menu-item-link menu-item-toggle">
+							<div class="menu-item-icon">
+								<i class="fa fa-icons"></i>
+							</div>
 							<span class="menu-item-text">Solutions</span>
 							<div class="menu-item-addon">
 								<i class="menu-item-caret caret"></i>
@@ -94,66 +121,26 @@
 						<!-- BEGIN Menu Submenu -->
 						<div class="menu-submenu">
 							<div class="menu-item">
+								<a href="unfinished_tasks.php" data-menu-path="unfinished_tasks.php" class="menu-item-link">
+									<i class="menu-item-bullet"></i>
+									<span class="menu-item-text">All Tasks</span>
+								</a>
+							</div>
+							<div class="menu-item">
 								<a href="add_task.php" data-menu-path="add_task.php" class="menu-item-link">
 									<i class="menu-item-bullet"></i>
 									<span class="menu-item-text">Add A Task</span>
 								</a>
 							</div>
-							<div class="menu-item">
-								<a href="unfinished_tasks.php" data-menu-path="unfinished_tasks.php" class="menu-item-link">
-									<i class="menu-item-bullet"></i>
-									<span class="menu-item-text">Unfinished Tasks</span>
-								</a>
-							</div>
 						</div>
-						<!-- END Menu Submenu -->
-					</div>
-					<div class="menu-item">
-						<button class="menu-item-link menu-item-toggle">
-							<div class="menu-item-icon">
-								<i class="fa fa-window-restore"></i>
-							</div>
-							<a href="projects.php">
-								
-							<span class="menu-item-text text-white">Projects</span>
-							<div class="menu-item-addon">
-								<i class="menu-item-caret caret"></i>
-							</div>
-							
-
-						</button>
-						<div class="menu-submenu">
-
-
-</div>
-							<div class="menu-submenu">
-							<div class="menu-item">
-							<button class="menu-item-link menu-item-toggle">
-							<div class="menu-item-icon">
-								<i class="fa fa-window-restore"></i>
-							</div>
-							<a href="add-project.php">
-							<span class="menu-item-text text-white">Add A Project</span>
-							
-							<div class="menu-item-addon">
-							</a>
-
-							</div>
-
-						</button>
-							</div>
-						</div>
-						<!-- BEGIN Menu Submenu -->
-
 						<!-- END Menu Submenu -->
 					</div>
 
 					<div class="menu-item">
+					<a href="logout.php" data-menu-path="logout.php">
+
 						<button class="menu-item-link menu-item-toggle">
-							<div class="menu-item-icon">
-								<i class="fa fa-window-restore"></i>
-							</div>
-							<a href="logout.php" data-menu-path="logout.php">
+							
 							<span class="menu-item-text">Logout</span>
 
 							</a>

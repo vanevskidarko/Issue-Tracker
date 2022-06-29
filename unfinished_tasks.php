@@ -81,7 +81,7 @@ $arr = array();
                     <button type='submit' class='btn btn-danger delete-task
                     float-right m-2 p-2' id=".$row['id']." >Delete</button>
 					<a href='view_task.php?id=".$row['id']."' class='btn btn-primary float-right m-2 p-2'>View</a>
-					<input type='hidden'> ".$row['id']."
+					<input type='hidden' value='".$row['id']."'> 
                     </div>
                         ";}
 
